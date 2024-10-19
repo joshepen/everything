@@ -1,4 +1,11 @@
 package com.joshepen.everything.ui;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.swing.JFileChooser;
+import java.util.Vector;
+
+import com.joshepen.everything.logic.DirectoryHandler;
 import com.joshepen.everything.objects.SearchResult;
 
 
@@ -11,7 +18,7 @@ import com.joshepen.everything.objects.SearchResult;
  *
  * @author joshu
  */
-public class UI extends javax.swing.JFrame {
+public class UI extends javax.swing.JFrame implements iUI {
 
     /**
      * Creates new form UI
@@ -36,8 +43,9 @@ public class UI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         firstCheckBox = new javax.swing.JCheckBox();
         secondCheckBox = new javax.swing.JCheckBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        resultsList = new javax.swing.JList<>();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        resultsTable = new javax.swing.JTable();
+        resultsTableModel = new javax.swing.table.DefaultTableModel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,13 +87,8 @@ public class UI extends javax.swing.JFrame {
                 .addGap(21, 21, 21))
         );
 
-        resultsList.setFont(new java.awt.Font("Trebuchet MS", 0, 14)); // NOI18N
-        resultsList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        jScrollPane1.setViewportView(resultsList);
+        resultsTable.setModel(resultsTableModel);
+        jScrollPane2.setViewportView(resultsTable);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -93,10 +96,11 @@ public class UI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(47, 47, 47)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 636, Short.MAX_VALUE)))
                 .addContainerGap(47, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,9 +110,9 @@ public class UI extends javax.swing.JFrame {
                 .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 575, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 566, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(42, Short.MAX_VALUE))
         );
 
         pack();
@@ -116,6 +120,7 @@ public class UI extends javax.swing.JFrame {
 
     private void firstCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_firstCheckBoxActionPerformed
         // TODO add your handling code here:
+        
     }//GEN-LAST:event_firstCheckBoxActionPerformed
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
@@ -127,12 +132,19 @@ public class UI extends javax.swing.JFrame {
      */
   
 
+     /*
+      * public function to clear results list and set to new collection
+      */
+    public void setResults(Collection<? extends SearchResult> data){
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox firstCheckBox;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JList<String> resultsList;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTable resultsTable;
     private javax.swing.JTextField searchBar;
     private javax.swing.JCheckBox secondCheckBox;
     // End of variables declaration//GEN-END:variables
+    private javax.swing.table.DefaultTableModel resultsTableModel;
 }

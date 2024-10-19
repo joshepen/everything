@@ -11,11 +11,11 @@ package com.joshepen.everything.objects;
 public class SearchResult {
     public String filename;
     public String filepath;
-    public boolean isFile;
+    public String size;
+    
     
     public SearchResult(String filename, String filepath, boolean isFile){
         this.filename = filename;
         this.filepath = filepath;
-        this.isFile = isFile;
     }
 }
