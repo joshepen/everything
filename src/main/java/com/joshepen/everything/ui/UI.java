@@ -1,14 +1,9 @@
 package com.joshepen.everything.ui;
-import java.util.ArrayList;
-import java.util.Collection;
-
-import javax.swing.JFileChooser;
-import java.util.Vector;
+import java.util.*;
 
 import com.joshepen.everything.logic.DirectoryHandler;
-import com.joshepen.everything.objects.SearchResult;
-
-
+import com.joshepen.everything.objects.DirectoryContents;
+import com.joshepen.everything.objects.DisplayData;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -87,7 +82,7 @@ public class UI extends javax.swing.JFrame implements iUI {
 
         sortOrderBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
-        sortByBox.setModel(new javax.swing.DefaultComboBoxModel<>(getColumnNames()));
+        sortByBox.setModel(new javax.swing.DefaultComboBoxModel<>());
 
         jLabel1.setText("Sort By:");
 
@@ -151,12 +146,13 @@ public class UI extends javax.swing.JFrame implements iUI {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void chooseDirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDirButtonActionPerformed
-        // TODO add your handling code here:
+        DirectoryContents d = new DirectoryContents();
+        d.setFileList(DirectoryHandler.promptDirectory());
+        setResults(d.getDisplayData());
+
     }//GEN-LAST:event_chooseDirButtonActionPerformed
 
     private void recursiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recursiveCheckBoxActionPerformed
-        // TODO add your handling code here:
-
     }//GEN-LAST:event_recursiveCheckBoxActionPerformed
 
     /**
@@ -167,18 +163,12 @@ public class UI extends javax.swing.JFrame implements iUI {
      /*
       * public function to clear results list and set to new collection
       */
-    public void setResults(Collection<? extends SearchResult> data){
-    }
-
-    private String[] getColumnNames(){
-        int count = resultsTableModel.getColumnCount();
-        String[] names = new String[count];
-        
-        for(int i=0; i<count; i++){
-            names[i] = resultsTableModel.getColumnName(i);
+    public void setResults(DisplayData dd){
+        resultsTableModel.setRowCount(0);
+        resultsTableModel.setColumnCount(0);
+        for(int i=0;i<dd.columnNames.length;i++){
+            resultsTableModel.addColumn(dd.columnNames[i], new Vector<>(dd.data.get(i)));
         }
-
-        return names;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
