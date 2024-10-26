@@ -1,32 +1,12 @@
 package com.joshepen.everything.logic;
 
 import javax.swing.JFileChooser;
-import java.io.File;
 
 public class DirectoryHandler{
-    private JFileChooser dirChooser;
-    private File currentDirectory;
-
-    public DirectoryHandler(){
-        dirChooser = new JFileChooser();
-        currentDirectory = null;
-    }
-
-    /*
-     * Display new pop-up and allow user to choose directory
-     */
-    public File setNewDirectory(){        
+    public static String promptDirectory(){
+        JFileChooser dirChooser = new JFileChooser();
+        dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         dirChooser.showOpenDialog(dirChooser);
-        currentDirectory = dirChooser.getSelectedFile();
-        return currentDirectory;
+        return dirChooser.getSelectedFile().getAbsolutePath();
     }
-
-    public File getCurrentDirectory(){
-        return currentDirectory;
-    }
-
-    public File[] getDirectoryFile(){
-        return currentDirectory.listFiles();
-    }
-
 }
