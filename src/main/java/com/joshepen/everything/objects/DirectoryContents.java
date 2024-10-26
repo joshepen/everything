@@ -6,15 +6,14 @@ import java.util.*;
 public class DirectoryContents {
     File dir;
     File[] files;
-
-    public void setFileList(String path){
-        dir = new File(path);
-        refreshFiles();
-    }
     
 
     public void refreshFiles(){
         files = dir.listFiles();
+    }
+
+    public void setDirectory(String path){
+        dir = new File(path);
     }
 
     public DisplayData getDisplayData(){

@@ -2,7 +2,6 @@ package com.joshepen.everything.ui;
 import java.util.*;
 
 import com.joshepen.everything.logic.DirectoryHandler;
-import com.joshepen.everything.objects.DirectoryContents;
 import com.joshepen.everything.objects.DisplayData;
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -15,6 +14,8 @@ import com.joshepen.everything.objects.DisplayData;
  */
 public class UI extends javax.swing.JFrame implements iUI {
 
+    DirectoryHandler directoryHandler;
+
     /**
      * Creates new form UI
      */
@@ -24,6 +25,9 @@ public class UI extends javax.swing.JFrame implements iUI {
         this.setVisible(true);
     }
     
+    public void setDirectoryHandler(DirectoryHandler directoryHandler){
+        this.directoryHandler = directoryHandler;
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -146,10 +150,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void chooseDirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDirButtonActionPerformed
-        DirectoryContents d = new DirectoryContents();
-        d.setFileList(DirectoryHandler.promptDirectory());
-        setResults(d.getDisplayData());
-
+        directoryHandler.chooseDir();
     }//GEN-LAST:event_chooseDirButtonActionPerformed
 
     private void recursiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recursiveCheckBoxActionPerformed
