@@ -142,11 +142,11 @@ public class UI extends javax.swing.JFrame implements iUI {
     }// </editor-fold>//GEN-END:initComponents
 
     private void searchBarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBarActionPerformed
-        // TODO add your handling code here:
+        directoryHandler.search(searchBar.getText());
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        // TODO add your handling code here:
+        directoryHandler.search(searchBar.getText());
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void chooseDirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDirButtonActionPerformed

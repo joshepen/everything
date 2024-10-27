@@ -24,4 +24,10 @@ public class DirectoryHandler{
         dirContents.refreshFiles();
         ui.setResults(dirContents.getDisplayData());
     }
+
+    public void search(String term){
+        dirContents.setSearchTerm(term);
+        dirContents.refreshFiles();
+        ui.setResults(dirContents.getDisplayData());
+    }
 }

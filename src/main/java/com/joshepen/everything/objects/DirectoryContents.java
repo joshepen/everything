@@ -6,14 +6,31 @@ import java.util.*;
 public class DirectoryContents {
     File dir;
     File[] files;
+    ArrayList<File> processedFiles;
+    String searchTerm;
+    boolean caseSensitive;
     
+    public DirectoryContents(){
+        searchTerm = "";
+        caseSensitive = false;
+    }
 
     public void refreshFiles(){
         files = dir.listFiles();
+        searchName(searchTerm);
+        sort();
+    }
+
+    public void setSearchTerm(String term){
+        searchTerm = term;
     }
 
     public void setDirectory(String path){
         dir = new File(path);
+    }
+
+    public void setCaseSensitive(boolean caseSensitive) {
+        this.caseSensitive = caseSensitive;
     }
 
     public DisplayData getDisplayData(){
@@ -29,13 +46,32 @@ public class DirectoryContents {
         data.add(sizes);
 
         File currFile;
-        for(int i=0; i<files.length; i++){
-            currFile = files[i];
+        for(int i=0; i<processedFiles.size(); i++){
+            currFile = processedFiles.get(i);
             names.add(currFile.getName());
             paths.add(currFile.getParent().substring(dir.getPath().length()));
             sizes.add(Double.toString(currFile.length()));
         }
 
         return new DisplayData(columnNames, data);
+    }
+
+    private void searchName(String term){
+        if(caseSensitive) term = term.toLowerCase();
+        processedFiles = new ArrayList<>();
+        
+        for(int i=0;i<files.length;i++){
+            if(files[i].getName().contains(term)){
+                processedFiles.add(files[i]);
+            }
+        }
+    }
+
+    private void sort(){
+        Collections.sort(processedFiles, new Comparator<File>() {
+            public int compare(File f1, File f2) {
+                return f1.getName().compareTo(f2.getName());
+            }
+        });
     }
 }
