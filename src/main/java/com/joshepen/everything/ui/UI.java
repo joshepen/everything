@@ -61,13 +61,11 @@ public class UI extends javax.swing.JFrame implements iUI {
             }
         });
         searchBar.addKeyListener(new java.awt.event.KeyListener() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-            }
+            public void keyPressed(java.awt.event.KeyEvent evt) {}
             public void keyReleased(java.awt.event.KeyEvent evt) {
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
                 directoryHandler.search(searchBar.getText());
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {}
         });
 
         resultsTable.setModel(resultsTableModel);
