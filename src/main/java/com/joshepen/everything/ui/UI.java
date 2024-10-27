@@ -48,6 +48,7 @@ public class UI extends javax.swing.JFrame implements iUI {
         sortOrderBox = new javax.swing.JComboBox<>();
         sortByBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
+        caseSensitiveCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,6 +91,13 @@ public class UI extends javax.swing.JFrame implements iUI {
 
         jLabel1.setText("Sort By:");
 
+        caseSensitiveCheckBox.setText("Case Sensitive");
+        caseSensitiveCheckBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                caseSensitiveCheckBoxActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,6 +107,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(recursiveCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(caseSensitiveCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -132,7 +142,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                     .addComponent(recursiveCheckBox)
                     .addComponent(sortOrderBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sortByBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(caseSensitiveCheckBox))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 673, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -156,6 +167,10 @@ public class UI extends javax.swing.JFrame implements iUI {
     private void recursiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recursiveCheckBoxActionPerformed
     }//GEN-LAST:event_recursiveCheckBoxActionPerformed
 
+    private void caseSensitiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseSensitiveCheckBoxActionPerformed
+        directoryHandler.setCaseSensitivity(caseSensitiveCheckBox.isEnabled());
+    }//GEN-LAST:event_caseSensitiveCheckBoxActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -173,6 +188,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JCheckBox caseSensitiveCheckBox;
     private javax.swing.JButton chooseDirButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane2;
