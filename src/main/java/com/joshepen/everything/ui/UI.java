@@ -60,6 +60,15 @@ public class UI extends javax.swing.JFrame implements iUI {
                 searchBarActionPerformed(evt);
             }
         });
+        searchBar.addKeyListener(new java.awt.event.KeyListener() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+            }
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                directoryHandler.search(searchBar.getText());
+            }
+        });
 
         resultsTable.setModel(resultsTableModel);
         jScrollPane2.setViewportView(resultsTable);
