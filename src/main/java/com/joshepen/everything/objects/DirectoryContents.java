@@ -13,6 +13,8 @@ public class DirectoryContents {
     public DirectoryContents(){
         searchTerm = "";
         caseSensitive = false;
+        setDirectory("C:\\");
+        refreshFiles();
     }
 
     public void refreshFiles(){
@@ -57,11 +59,14 @@ public class DirectoryContents {
     }
 
     private void searchName(String term){
-        if(caseSensitive) term = term.toLowerCase();
+        if(!caseSensitive) term = term.toLowerCase();
         processedFiles = new ArrayList<>();
-        
+        String currFileName;
         for(int i=0;i<files.length;i++){
-            if(files[i].getName().contains(term)){
+            currFileName = files[i].getName();
+            if(!caseSensitive) currFileName = currFileName.toLowerCase();
+
+            if(currFileName.contains(term)){
                 processedFiles.add(files[i]);
             }
         }

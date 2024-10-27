@@ -11,12 +11,21 @@ public class DirectoryHandler{
     public DirectoryHandler(iUI ui){
         dirContents = new DirectoryContents();
         this.ui = ui;
+        
+        dirContents.refreshFiles();
+        ui.setResults(dirContents.getDisplayData());
     }
     private String promptDirectory(){
         JFileChooser dirChooser = new JFileChooser();
         dirChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         dirChooser.showOpenDialog(dirChooser);
         return dirChooser.getSelectedFile().getAbsolutePath();
+    }
+
+    public void setCaseSensitivity(boolean isCaseSensitive){
+        dirContents.setCaseSensitive(isCaseSensitive);
+        dirContents.refreshFiles();
+        ui.setResults(dirContents.getDisplayData());
     }
 
     public void chooseDir(){
