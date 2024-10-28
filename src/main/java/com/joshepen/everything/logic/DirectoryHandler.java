@@ -24,8 +24,10 @@ public class DirectoryHandler{
 
     public void setCaseSensitivity(boolean isCaseSensitive){
         dirContents.setCaseSensitive(isCaseSensitive);
-        dirContents.refreshFiles();
-        ui.setResults(dirContents.getDisplayData());
+    }
+
+    public void setRecursive(boolean isRecursive){
+        dirContents.setRecursive(isRecursive);
     }
 
     public void chooseDir(){
