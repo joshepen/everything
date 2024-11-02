@@ -16,5 +16,6 @@ public class Everything {
         iUI ui = new UI();
         DirectoryHandler directoryHandler = new DirectoryHandler(ui);
         ui.setDirectoryHandler(directoryHandler);
+        directoryHandler.search("");
     }
 }

@@ -102,6 +102,14 @@ public class UI extends javax.swing.JFrame implements iUI {
 
         sortByBox.setModel(new javax.swing.DefaultComboBoxModel<>());
 
+        sortByBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortByBoxActionPerformed(evt);
+            }
+        });
+
+        System.out.println(sortByBox.getSelectedItem());
+
         jLabel1.setText("Sort By:");
 
         caseSensitiveCheckBox.setText("Case Sensitive");
@@ -190,6 +198,11 @@ public class UI extends javax.swing.JFrame implements iUI {
         directoryHandler.setAscending(choice.equals("Ascending"));
     }
 
+    private void sortByBoxActionPerformed(java.awt.event.ActionEvent evt){
+        if(sortByBox.getSelectedItem() != null)
+            directoryHandler.setSortBy(sortByBox.getSelectedItem().toString());
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -199,11 +212,17 @@ public class UI extends javax.swing.JFrame implements iUI {
       * public function to clear results list and set to new collection
       */
     public void setResults(DisplayData dd){
+        if(sortByBox.getItemCount() <= 0){
+            for(int i=0;i<dd.columnNames.length;i++){
+                sortByBox.addItem(dd.columnNames[i]);
+            }
+        }
         resultsTableModel.setRowCount(0);
         resultsTableModel.setColumnCount(0);
         for(int i=0;i<dd.columnNames.length;i++){
             resultsTableModel.addColumn(dd.columnNames[i], new Vector<>(dd.data.get(i)));
-        }
+            
+        }        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

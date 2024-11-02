@@ -15,6 +15,7 @@ public class DirectoryContents {
     private boolean caseSensitive;
     private boolean recursive;
     private boolean ascending;
+    private String sortBy;
     
     public DirectoryContents(){
         searchTerm = "";
@@ -22,7 +23,7 @@ public class DirectoryContents {
         setDirectory("C:\\");
         recursive = false;
         ascending = true;
-        
+        sortBy = "";
         refreshFiles();
     }
 
@@ -30,7 +31,7 @@ public class DirectoryContents {
         files = getFiles(dir, 1);
         searchName(searchTerm);
         setDisplayData();
-        sort("Name");
+        sort(sortBy);
     }
 
     public ArrayList<File> getFiles(File dir, int numDirs){
@@ -74,6 +75,10 @@ public class DirectoryContents {
 
     public void setAscending(boolean ascending){
         this.ascending = ascending;
+    }
+
+    public void setSortBy(String columnName){
+        sortBy = columnName;
     }
 
     private void setDisplayData(){

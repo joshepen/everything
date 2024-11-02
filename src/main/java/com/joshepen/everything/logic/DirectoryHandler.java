@@ -15,8 +15,6 @@ public class DirectoryHandler{
     public DirectoryHandler(iUI ui){
         dirContents = new DirectoryContents();
         this.ui = ui;
-        
-        ui.setResults(dirContents.getDisplayData());
     }
     private String promptDirectory(){
         JFileChooser dirChooser = new JFileChooser();
@@ -35,6 +33,10 @@ public class DirectoryHandler{
 
     public void setAscending(boolean ascending){
         dirContents.setAscending(ascending);
+    }
+
+    public void setSortBy(String columnName){
+        dirContents.setSortBy(columnName);
     }
 
     public void chooseDir(){
