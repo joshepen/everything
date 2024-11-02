@@ -2,6 +2,8 @@ package com.joshepen.everything.objects;
 
 import java.io.File;
 import java.util.*;
+import java.text.DecimalFormat;
+
 
 public class DirectoryContents {
     private final int MAX_NUM_DIRS = 3;
@@ -66,7 +68,7 @@ public class DirectoryContents {
     }
 
     public DisplayData getDisplayData(){
-        String[] columnNames = {"Name","Path","Size (MB)"};
+        String[] columnNames = {"Name","Path","File Size"};
         List<List<String>> data = new ArrayList<>();
         
         ArrayList<String> names = new ArrayList<>();
@@ -82,11 +84,23 @@ public class DirectoryContents {
             currFile = processedFiles.get(i);
             names.add(currFile.getName());
             paths.add(currFile.getParent().substring(dir.getPath().length()));
-            sizes.add(Double.toString(currFile.length()));
+            sizes.add(readableFileSize(currFile.length()));
         }
 
         return new DisplayData(columnNames, data);
     }
+
+    /*
+     * Purpose: Convert a number of bytes to a readable file size (23 MB, 1.2 GB, etc)
+     * Source: https://stackoverflow.com/questions/3263892/format-file-size-as-mb-gb-etc
+     */
+    private static String readableFileSize(long size) {
+        if(size <= 0) return "0";
+        final String[] units = new String[] { "B", "kB", "MB", "GB", "TB", "PB", "EB" };
+        int digitGroups = (int) (Math.log10(size)/Math.log10(1024));
+        return new DecimalFormat("#,##0.#").format(size/Math.pow(1024, digitGroups)) + " " + units[digitGroups];
+    }
+
 
     private void searchName(String term){
         if(!caseSensitive) term = term.toLowerCase();
