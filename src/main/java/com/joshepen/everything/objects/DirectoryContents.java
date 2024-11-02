@@ -68,7 +68,7 @@ public class DirectoryContents {
     }
 
     public DisplayData getDisplayData(){
-        String[] columnNames = {"Name","Path","Size (MB)"};
+        String[] columnNames = {"Name","Path","File Size"};
         List<List<String>> data = new ArrayList<>();
         
         ArrayList<String> names = new ArrayList<>();
