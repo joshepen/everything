@@ -5,15 +5,16 @@ import javax.swing.JFileChooser;
 import com.joshepen.everything.objects.DirectoryContents;
 import com.joshepen.everything.ui.*;
 
+
+/*
+ * Purpose: handle passing of data and functions from the UI layer to the Display Data object.
+ */
 public class DirectoryHandler{
     private DirectoryContents dirContents;
     private iUI ui;
     public DirectoryHandler(iUI ui){
         dirContents = new DirectoryContents();
         this.ui = ui;
-        
-        dirContents.refreshFiles();
-        ui.setResults(dirContents.getDisplayData());
     }
     private String promptDirectory(){
         JFileChooser dirChooser = new JFileChooser();
@@ -28,6 +29,14 @@ public class DirectoryHandler{
 
     public void setRecursive(boolean isRecursive){
         dirContents.setRecursive(isRecursive);
+    }
+
+    public void setAscending(boolean ascending){
+        dirContents.setAscending(ascending);
+    }
+
+    public void setSortBy(String columnName){
+        dirContents.setSortBy(columnName);
     }
 
     public void chooseDir(){

@@ -4,7 +4,6 @@
 
 package com.joshepen.everything.main;
 import com.joshepen.everything.ui.*;
-import com.joshepen.everything.objects.*;
 import com.joshepen.everything.logic.*;
 
 /**
@@ -17,5 +16,6 @@ public class Everything {
         iUI ui = new UI();
         DirectoryHandler directoryHandler = new DirectoryHandler(ui);
         ui.setDirectoryHandler(directoryHandler);
+        directoryHandler.search("");
     }
 }
