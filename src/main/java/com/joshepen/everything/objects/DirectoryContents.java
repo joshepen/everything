@@ -10,22 +10,27 @@ public class DirectoryContents {
     private File dir;
     private ArrayList<File> files;
     private ArrayList<File> processedFiles;
+    private DisplayData displayData;
     private String searchTerm;
     private boolean caseSensitive;
     private boolean recursive;
+    private boolean ascending;
     
     public DirectoryContents(){
         searchTerm = "";
         caseSensitive = false;
         setDirectory("C:\\");
-        refreshFiles();
         recursive = false;
+        ascending = true;
+        
+        refreshFiles();
     }
 
     public void refreshFiles(){
         files = getFiles(dir, 1);
         searchName(searchTerm);
-        sort();
+        setDisplayData();
+        sort("Name");
     }
 
     public ArrayList<File> getFiles(File dir, int numDirs){
@@ -67,7 +72,11 @@ public class DirectoryContents {
         this.caseSensitive = caseSensitive;
     }
 
-    public DisplayData getDisplayData(){
+    public void setAscending(boolean ascending){
+        this.ascending = ascending;
+    }
+
+    private void setDisplayData(){
         String[] columnNames = {"Name","Path","File Size"};
         List<List<String>> data = new ArrayList<>();
         
@@ -87,7 +96,11 @@ public class DirectoryContents {
             sizes.add(readableFileSize(currFile.length()));
         }
 
-        return new DisplayData(columnNames, data);
+        displayData = new DisplayData(columnNames, data);
+    }
+
+    public DisplayData getDisplayData(){
+        return displayData;
     }
 
     /*
@@ -116,11 +129,7 @@ public class DirectoryContents {
         }
     }
 
-    private void sort(){
-        Collections.sort(processedFiles, new Comparator<File>() {
-            public int compare(File f1, File f2) {
-                return f1.getName().compareTo(f2.getName());
-            }
-        });
+    private void sort(String columnName){
+        displayData.sortByColumn(columnName, ascending);
     }
 }

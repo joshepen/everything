@@ -94,6 +94,12 @@ public class UI extends javax.swing.JFrame implements iUI {
 
         sortOrderBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
+        sortOrderBox.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                sortOrderBoxActionPerformed(evt);
+            }
+        });
+
         sortByBox.setModel(new javax.swing.DefaultComboBoxModel<>());
 
         jLabel1.setText("Sort By:");
@@ -178,6 +184,11 @@ public class UI extends javax.swing.JFrame implements iUI {
     private void caseSensitiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseSensitiveCheckBoxActionPerformed
         directoryHandler.setCaseSensitivity(caseSensitiveCheckBox.isEnabled());
     }//GEN-LAST:event_caseSensitiveCheckBoxActionPerformed
+
+    private void sortOrderBoxActionPerformed(java.awt.event.ActionEvent evt){
+        String choice = sortOrderBox.getSelectedItem().toString();
+        directoryHandler.setAscending(choice.equals("Ascending"));
+    }
 
     /**
      * @param args the command line arguments
