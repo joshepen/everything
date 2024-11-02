@@ -186,7 +186,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     }//GEN-LAST:event_chooseDirButtonActionPerformed
 
     private void recursiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_recursiveCheckBoxActionPerformed
-        directoryHandler.setRecursive(recursiveCheckBox.isEnabled());
+        directoryHandler.setRecursive(recursiveCheckBox.isSelected());
     }//GEN-LAST:event_recursiveCheckBoxActionPerformed
 
     private void caseSensitiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseSensitiveCheckBoxActionPerformed
