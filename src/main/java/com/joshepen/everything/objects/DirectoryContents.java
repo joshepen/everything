@@ -5,11 +5,10 @@ import java.util.*;
 import java.text.DecimalFormat;
 
 
-public class DirectoryContents {
+public class DirectoryContents extends Observable{
     private final int MAX_NUM_DIRS = 3;
     private File dir;
     private ArrayList<File> files;
-    private ArrayList<File> processedFiles;
     private DisplayData displayData;
     private String searchTerm;
     private boolean caseSensitive;
@@ -30,7 +29,6 @@ public class DirectoryContents {
     public void refreshFiles(){
         files = getFiles(dir, 1);
         searchName(searchTerm);
-        setDisplayData();
         sort(sortBy);
     }
 
@@ -81,29 +79,6 @@ public class DirectoryContents {
         sortBy = columnName;
     }
 
-    private void setDisplayData(){
-        String[] columnNames = {"Name","Path","File Size"};
-        List<List<String>> data = new ArrayList<>();
-        
-        ArrayList<String> names = new ArrayList<>();
-        ArrayList<String> paths = new ArrayList<>();
-        ArrayList<String> sizes = new ArrayList<>();
-
-        data.add(names);
-        data.add(paths);
-        data.add(sizes);
-
-        File currFile;
-        for(int i=0; i<processedFiles.size(); i++){
-            currFile = processedFiles.get(i);
-            names.add(currFile.getName());
-            paths.add(currFile.getParent().substring(dir.getPath().length()));
-            sizes.add(readableFileSize(currFile.length()));
-        }
-
-        displayData = new DisplayData(columnNames, data);
-    }
-
     public DisplayData getDisplayData(){
         return displayData;
     }
@@ -121,17 +96,35 @@ public class DirectoryContents {
 
 
     private void searchName(String term){
+        String[] columnNames = {"Name","Path","File Size"};
+        List<List<String>> data = new ArrayList<>();
+        
+        ArrayList<String> names = new ArrayList<>();
+        ArrayList<String> paths = new ArrayList<>();
+        ArrayList<String> sizes = new ArrayList<>();
+
+        data.add(names);
+        data.add(paths);
+        data.add(sizes);
+
         if(!caseSensitive) term = term.toLowerCase();
-        processedFiles = new ArrayList<>();
+        
         String currFileName;
+        File currFile;
         for(int i=0;i<files.size();i++){
             currFileName = files.get(i).getName();
             if(!caseSensitive) currFileName = currFileName.toLowerCase();
 
             if(currFileName.contains(term)){
-                processedFiles.add(files.get(i));
+                currFile = files.get(i);
+                names.add(currFile.getName());
+                paths.add(currFile.getParent().substring(dir.getPath().length()));
+                sizes.add(readableFileSize(currFile.length()));
             }
         }
+
+        displayData = new DisplayData(columnNames, data);
+        notifyObservers();
     }
 
     private void sort(String columnName){
