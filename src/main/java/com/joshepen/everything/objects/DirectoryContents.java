@@ -5,7 +5,7 @@ import java.util.*;
 import java.text.DecimalFormat;
 
 
-public class DirectoryContents extends Observable{
+public class DirectoryContents extends Observable implements Runnable{
     private final int MAX_NUM_DIRS = 3;
     private File dir;
     private ArrayList<File> files;
@@ -15,6 +15,8 @@ public class DirectoryContents extends Observable{
     private boolean recursive;
     private boolean ascending;
     private String sortBy;
+    private boolean queueStop;
+    private boolean threadRunning;
     
     public DirectoryContents(){
         searchTerm = "";
@@ -23,6 +25,8 @@ public class DirectoryContents extends Observable{
         recursive = false;
         ascending = true;
         sortBy = "";
+        queueStop = false;
+        threadRunning = false;
         refreshFiles();
     }
 
@@ -31,8 +35,11 @@ public class DirectoryContents extends Observable{
         searchName(searchTerm);
         sort(sortBy);
 
-        setChanged();
-        notifyObservers();
+        if(!queueStop){
+            setChanged();
+            notifyObservers();
+        }
+        
     }
 
     public ArrayList<File> getFiles(File dir, int numDirs){
@@ -40,7 +47,7 @@ public class DirectoryContents extends Observable{
         ArrayList<File> outFiles = new ArrayList<>();
         if(currFiles != null){
             for(File file : currFiles){
-                if (file.isFile()){
+                if (!queueStop && file.isFile()){
                     outFiles.add(file);
                 }
             }
@@ -86,6 +93,14 @@ public class DirectoryContents extends Observable{
         return displayData;
     }
 
+    public void stopSearch(){
+        queueStop = true;
+    }
+
+    public boolean isRunning(){
+        return threadRunning;
+    }
+
     /*
      * Purpose: Convert a number of bytes to a readable file size (23 MB, 1.2 GB, etc)
      * Source: https://stackoverflow.com/questions/3263892/format-file-size-as-mb-gb-etc
@@ -118,7 +133,7 @@ public class DirectoryContents extends Observable{
             currFileName = files.get(i).getName();
             if(!caseSensitive) currFileName = currFileName.toLowerCase();
 
-            if(currFileName.contains(term)){
+            if(!queueStop && currFileName.contains(term)){
                 currFile = files.get(i);
                 names.add(currFile.getName());
                 paths.add(currFile.getParent().substring(dir.getPath().length()));
@@ -131,5 +146,12 @@ public class DirectoryContents extends Observable{
 
     private void sort(String columnName){
         displayData.sortByColumn(columnName, ascending);
+    }
+
+    public void run(){
+        threadRunning = true;
+        refreshFiles();
+        threadRunning = false;
+        queueStop = false;
     }
 }
