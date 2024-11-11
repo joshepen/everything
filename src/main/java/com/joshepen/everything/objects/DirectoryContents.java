@@ -30,6 +30,9 @@ public class DirectoryContents extends Observable{
         files = getFiles(dir, 1);
         searchName(searchTerm);
         sort(sortBy);
+
+        setChanged();
+        notifyObservers();
     }
 
     public ArrayList<File> getFiles(File dir, int numDirs){
@@ -124,7 +127,6 @@ public class DirectoryContents extends Observable{
         }
 
         displayData = new DisplayData(columnNames, data);
-        notifyObservers();
     }
 
     private void sort(String columnName){
