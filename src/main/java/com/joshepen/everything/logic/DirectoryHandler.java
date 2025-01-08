@@ -14,12 +14,10 @@ import com.joshepen.everything.ui.*;
 public class DirectoryHandler implements Observer{
     private DirectoryContents dirContents;
     private iUI ui;
-    private Thread searchThread;
     public DirectoryHandler(iUI ui){
         dirContents = new DirectoryContents();
         this.ui = ui;
         dirContents.addObserver(this);
-        searchThread = new Thread(dirContents);
     }
     private String promptDirectory(){
         JFileChooser dirChooser = new JFileChooser();
@@ -46,21 +44,14 @@ public class DirectoryHandler implements Observer{
 
     public void chooseDir(){
         dirContents.setDirectory(promptDirectory());
-        if(dirContents.isRunning()){
-            dirContents.stopSearch();
-        }
-        while(dirContents.isRunning());
-        searchThread.start();
+        dirContents.refreshFiles();
         ui.setResults(dirContents.getDisplayData());
     }
 
     public void search(String term){
         dirContents.setSearchTerm(term);
-        if(dirContents.isRunning()){
-            dirContents.stopSearch();
-        }
-        while(dirContents.isRunning());
-        searchThread.start();
+        dirContents.refreshFiles();
+        // ui.setResults(dirContents.getDisplayData());
     }
 
     public void update(Observable o, Object arg){

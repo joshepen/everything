@@ -53,11 +53,4 @@ public class DisplayData {
             column.add(to, column.remove(from));
         }
     }
-
-    public void replace(DisplayData newData){
-        for(int i=0; i<data.size(); i++){
-            data.get(i).clear();
-            data.get(i).addAll(newData.data.get(i));
-        }
-    }
 }
