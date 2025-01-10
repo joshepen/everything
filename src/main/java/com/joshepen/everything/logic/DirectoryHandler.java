@@ -5,6 +5,7 @@ import javax.swing.JFileChooser;
 import java.util.Observable;
 import java.util.Observer;
 import com.joshepen.everything.objects.DirectoryContents;
+import com.joshepen.everything.objects.DisplayData;
 import com.joshepen.everything.ui.*;
 
 
@@ -57,6 +58,9 @@ public class DirectoryHandler implements Observer{
     }
 
     public void update(Observable o, Object arg){
-        ui.setResults(dirContents.getDisplayData());
+        DisplayData dd = dirContents.getDisplayData();
+        if(dd != null){
+            ui.setResults(dd);
+        }
     }
 }

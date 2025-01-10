@@ -16,6 +16,8 @@ public class DirectoryContents extends Observable implements Observer{
     private String sortBy;
     private SearchThread searchObject;
     private Thread searchThread;
+    private GetFilesThread getFilesObject;
+    private Thread getFilesThread;
     
     public DirectoryContents(){
         searchTerm = "";
@@ -24,7 +26,9 @@ public class DirectoryContents extends Observable implements Observer{
         recursive = false;
         ascending = true;
         sortBy = "";
-        refreshFiles();
+        getFiles();
+        // while(files == null); // this is not a proper check.
+        // search();
     }
 
     public void refreshFiles(){
@@ -32,8 +36,18 @@ public class DirectoryContents extends Observable implements Observer{
          * This fetches all the files in the current directory
          * and then updates the display data
          */
-        files = getFiles(dir, 1);
-        search();
+        getFiles();
+        // search();
+    }
+
+    public void getFiles(){
+        if(getFilesThread != null){
+            getFilesThread.interrupt();
+        }
+        getFilesObject = new GetFilesThread(recursive,dir,MAX_NUM_DIRS);
+        getFilesObject.addObserver(this);
+        getFilesThread = new Thread(getFilesObject);
+        getFilesThread.start();
     }
 
     public void search(){
@@ -44,29 +58,6 @@ public class DirectoryContents extends Observable implements Observer{
         searchObject.addObserver(this);
         searchThread = new Thread(searchObject);
         searchThread.start();
-    }
-
-    public ArrayList<File> getFiles(File dir, int numDirs){
-        File[] currFiles = dir.listFiles();
-        ArrayList<File> outFiles = new ArrayList<>();
-        if(currFiles != null){
-            for(File file : currFiles){
-                if (file.isFile()){
-                    outFiles.add(file);
-                }
-            }
-
-            // I need breadth first traversal so I have to loop a second time for dirs
-            if(recursive){
-                for(File file : currFiles){
-                    if(file.isDirectory() && numDirs < MAX_NUM_DIRS){
-                        outFiles.addAll(getFiles(file, numDirs + 1));
-                    }
-                }
-            }
-            
-        }
-        return outFiles;
     }
 
     public void setSearchTerm(String term){
@@ -97,14 +88,15 @@ public class DirectoryContents extends Observable implements Observer{
         return displayData;
     }
 
-    
-
-    private void sort(String columnName){
-        displayData.sortByColumn(columnName, ascending);
-    }
-
     public void update(Observable o, Object arg){
-        displayData = searchObject.getDisplayData();
+        if(o.getClass() == getFilesObject.getClass()){
+            files = getFilesObject.getFiles();
+            search();
+        }
+        if(searchObject != null){
+            displayData = searchObject.getDisplayData();
+        }
+        
         setChanged();
         notifyObservers();
     }
