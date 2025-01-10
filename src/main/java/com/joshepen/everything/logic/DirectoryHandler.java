@@ -45,13 +45,15 @@ public class DirectoryHandler implements Observer{
     public void chooseDir(){
         dirContents.setDirectory(promptDirectory());
         dirContents.refreshFiles();
-        ui.setResults(dirContents.getDisplayData());
+    }
+
+    public void refresh(){
+        dirContents.refreshFiles();
     }
 
     public void search(String term){
         dirContents.setSearchTerm(term);
-        dirContents.refreshFiles();
-        // ui.setResults(dirContents.getDisplayData());
+        dirContents.search();
     }
 
     public void update(Observable o, Object arg){

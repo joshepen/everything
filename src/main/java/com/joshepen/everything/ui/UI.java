@@ -108,8 +108,6 @@ public class UI extends javax.swing.JFrame implements iUI {
             }
         });
 
-        System.out.println(sortByBox.getSelectedItem());
-
         jLabel1.setText("Sort By:");
 
         caseSensitiveCheckBox.setText("Case Sensitive");
@@ -178,7 +176,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     }//GEN-LAST:event_searchBarActionPerformed
 
     private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        directoryHandler.search(searchBar.getText());
+        directoryHandler.refresh();
     }//GEN-LAST:event_refreshButtonActionPerformed
 
     private void chooseDirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDirButtonActionPerformed

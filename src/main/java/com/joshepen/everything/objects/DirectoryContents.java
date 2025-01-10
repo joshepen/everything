@@ -2,10 +2,9 @@ package com.joshepen.everything.objects;
 
 import java.io.File;
 import java.util.*;
-import java.text.DecimalFormat;
 
 
-public class DirectoryContents extends Observable{
+public class DirectoryContents extends Observable implements Observer{
     private final int MAX_NUM_DIRS = 3;
     private File dir;
     private ArrayList<File> files;
@@ -15,6 +14,8 @@ public class DirectoryContents extends Observable{
     private boolean recursive;
     private boolean ascending;
     private String sortBy;
+    private SearchThread searchObject;
+    private Thread searchThread;
     
     public DirectoryContents(){
         searchTerm = "";
@@ -27,12 +28,22 @@ public class DirectoryContents extends Observable{
     }
 
     public void refreshFiles(){
+        /*
+         * This fetches all the files in the current directory
+         * and then updates the display data
+         */
         files = getFiles(dir, 1);
-        searchName(searchTerm);
-        sort(sortBy);
+        search();
+    }
 
-        setChanged();
-        notifyObservers();
+    public void search(){
+        if(searchThread != null){
+            searchThread.interrupt();
+        }
+        searchObject = new SearchThread(files, searchTerm, sortBy, caseSensitive, ascending,dir);
+        searchObject.addObserver(this);
+        searchThread = new Thread(searchObject);
+        searchThread.start();
     }
 
     public ArrayList<File> getFiles(File dir, int numDirs){
@@ -86,50 +97,15 @@ public class DirectoryContents extends Observable{
         return displayData;
     }
 
-    /*
-     * Purpose: Convert a number of bytes to a readable file size (23 MB, 1.2 GB, etc)
-     * Source: https://stackoverflow.com/questions/3263892/format-file-size-as-mb-gb-etc
-     */
-    private static String readableFileSize(long size) {
-        if(size <= 0) return "0";
-        final String[] units = new String[] { "B", "kB", "MB", "GB", "TB", "PB", "EB" };
-        int digitGroups = (int) (Math.log10(size)/Math.log10(1024));
-        return new DecimalFormat("#,##0.#").format(size/Math.pow(1024, digitGroups)) + " " + units[digitGroups];
-    }
-
-
-    private void searchName(String term){
-        String[] columnNames = {"Name","Path","File Size"};
-        List<List<String>> data = new ArrayList<>();
-        
-        ArrayList<String> names = new ArrayList<>();
-        ArrayList<String> paths = new ArrayList<>();
-        ArrayList<String> sizes = new ArrayList<>();
-
-        data.add(names);
-        data.add(paths);
-        data.add(sizes);
-
-        if(!caseSensitive) term = term.toLowerCase();
-        
-        String currFileName;
-        File currFile;
-        for(int i=0;i<files.size();i++){
-            currFileName = files.get(i).getName();
-            if(!caseSensitive) currFileName = currFileName.toLowerCase();
-
-            if(currFileName.contains(term)){
-                currFile = files.get(i);
-                names.add(currFile.getName());
-                paths.add(currFile.getParent().substring(dir.getPath().length()));
-                sizes.add(readableFileSize(currFile.length()));
-            }
-        }
-
-        displayData = new DisplayData(columnNames, data);
-    }
+    
 
     private void sort(String columnName){
         displayData.sortByColumn(columnName, ascending);
+    }
+
+    public void update(Observable o, Object arg){
+        displayData = searchObject.getDisplayData();
+        setChanged();
+        notifyObservers();
     }
 }
