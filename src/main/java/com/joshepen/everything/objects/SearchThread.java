@@ -25,12 +25,8 @@ public class SearchThread extends Observable implements Runnable{
   }
 
   public void run() {
-    System.out.println("Searching");
     searchName(searchTerm);
-    System.out.println("Sorting");
     sort(sortBy);
-    System.out.println("Done");
-
 
     setChanged();
     notifyObservers();
