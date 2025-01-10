@@ -188,7 +188,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     }//GEN-LAST:event_recursiveCheckBoxActionPerformed
 
     private void caseSensitiveCheckBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_caseSensitiveCheckBoxActionPerformed
-        directoryHandler.setCaseSensitivity(caseSensitiveCheckBox.isEnabled());
+        directoryHandler.setCaseSensitivity(caseSensitiveCheckBox.isSelected());
     }//GEN-LAST:event_caseSensitiveCheckBoxActionPerformed
 
     private void sortOrderBoxActionPerformed(java.awt.event.ActionEvent evt){
