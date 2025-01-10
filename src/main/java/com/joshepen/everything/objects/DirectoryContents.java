@@ -27,8 +27,6 @@ public class DirectoryContents extends Observable implements Observer{
         ascending = true;
         sortBy = "";
         getFiles();
-        // while(files == null); // this is not a proper check.
-        // search();
     }
 
     public void refreshFiles(){
@@ -37,7 +35,6 @@ public class DirectoryContents extends Observable implements Observer{
          * and then updates the display data
          */
         getFiles();
-        // search();
     }
 
     public void getFiles(){
