@@ -43,7 +43,7 @@ public class DirectoryHandler implements Observer{
 
     public void setSortBy(String columnName){
         dirContents.setSortBy(columnName);
-        dirContents.refreshFiles();
+        dirContents.search();
     }
 
     public void chooseDir(){
