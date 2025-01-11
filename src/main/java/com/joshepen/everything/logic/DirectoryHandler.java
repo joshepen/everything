@@ -33,14 +33,17 @@ public class DirectoryHandler implements Observer{
 
     public void setRecursive(boolean isRecursive){
         dirContents.setRecursive(isRecursive);
+        dirContents.refreshFiles();
     }
 
     public void setAscending(boolean ascending){
         dirContents.setAscending(ascending);
+        dirContents.search();
     }
 
     public void setSortBy(String columnName){
         dirContents.setSortBy(columnName);
+        dirContents.refreshFiles();
     }
 
     public void chooseDir(){
