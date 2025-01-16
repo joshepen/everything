@@ -29,6 +29,7 @@ public class DirectoryHandler implements Observer{
 
     public void setCaseSensitivity(boolean isCaseSensitive){
         dirContents.setCaseSensitive(isCaseSensitive);
+        dirContents.search();
     }
 
     public void setRecursive(boolean isRecursive){

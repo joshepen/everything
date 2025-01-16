@@ -215,12 +215,19 @@ public class UI extends javax.swing.JFrame implements iUI {
                 sortByBox.addItem(dd.columnNames[i]);
             }
         }
+        
         resultsTableModel.setRowCount(0);
         resultsTableModel.setColumnCount(0);
+
+        ArrayList<Vector<String>> columnVectors = new ArrayList<>();
         for(int i=0;i<dd.columnNames.length;i++){
-            resultsTableModel.addColumn(dd.columnNames[i], new Vector<>(dd.data.get(i)));
-            
-        }        
+            columnVectors.add(new Vector<>());
+            resultsTableModel.addColumn(dd.columnNames[i], columnVectors.get(i));
+        }
+        
+        for(int j=0;j<dd.size();j++){
+            resultsTableModel.addRow(dd.get(j));
+        }
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
