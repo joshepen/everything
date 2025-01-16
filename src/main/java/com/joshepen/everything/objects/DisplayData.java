@@ -43,7 +43,7 @@ public class DisplayData {
         Collections.sort(displayItems,new Comparator<DisplayItem>() {
             @Override
             public int compare(DisplayItem i1, DisplayItem i2){
-                return i1.getAttribute(sortBy).compareToIgnoreCase(i2.getAttribute(sortBy));
+                return (ascending ? 1:-1) * i1.getAttribute(sortBy).compareToIgnoreCase(i2.getAttribute(sortBy));
             }
         });     
     }
