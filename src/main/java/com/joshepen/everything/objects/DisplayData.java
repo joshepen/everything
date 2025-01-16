@@ -10,29 +10,6 @@ import java.util.Vector;
  * This is just an object that holds the data to be stored in the results table.
  */
 public class DisplayData {
-    class DisplayItem{
-        private Vector<String> names;
-        private Vector<String> values;
-        public DisplayItem(){
-            names = new Vector<>();
-            values = new Vector<>();
-        }
-        public void addAttribute(String name, String value){
-            if(names.contains(name)) {
-                values.remove(names.indexOf(name));
-                names.remove(name);
-            }
-            names.add(name);
-            values.add(value); 
-        }
-        public String getAttribute(String name){
-            return values.get(names.indexOf(name));
-        }
-
-        public Vector<String> getVector(){
-            return values;
-        }
-    }
     private ArrayList<DisplayItem> displayItems;
     private String sortBy;
     public String[] columnNames;
