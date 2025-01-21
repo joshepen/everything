@@ -161,10 +161,6 @@ public class UI extends javax.swing.JFrame implements iUI {
         directoryHandler.search(searchBar.getText());
     }//GEN-LAST:event_searchBarActionPerformed
 
-    private void refreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_refreshButtonActionPerformed
-        directoryHandler.refresh();
-    }//GEN-LAST:event_refreshButtonActionPerformed
-
     private void chooseDirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_chooseDirButtonActionPerformed
         directoryHandler.chooseDir();
     }//GEN-LAST:event_chooseDirButtonActionPerformed
