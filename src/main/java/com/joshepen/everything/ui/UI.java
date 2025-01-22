@@ -1,5 +1,6 @@
 package com.joshepen.everything.ui;
 import java.util.*;
+import java.awt.Color;
 
 import com.joshepen.everything.logic.DirectoryHandler;
 import com.joshepen.everything.objects.DisplayData;
@@ -15,11 +16,17 @@ import com.joshepen.everything.objects.DisplayData;
 public class UI extends javax.swing.JFrame implements iUI {
 
     DirectoryHandler directoryHandler;
+    private Color primaryColour;
+    private Color secondaryColour;
+    private Color tertiaryColour;
+    private Color quaternaryColour;
+
 
     /**
      * Creates new form UI
      */
     public UI() {
+        setColours();
         initComponents();
         this.pack();
         this.setVisible(true);
@@ -28,7 +35,14 @@ public class UI extends javax.swing.JFrame implements iUI {
     public void setDirectoryHandler(DirectoryHandler directoryHandler){
         this.directoryHandler = directoryHandler;
     }
-    
+
+    public void setColours(){
+        primaryColour = new Color(24, 28, 20);
+        secondaryColour = new Color(60,61,55);
+        tertiaryColour = new Color(105,117,101);
+        quaternaryColour = new Color(236,233,204);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
