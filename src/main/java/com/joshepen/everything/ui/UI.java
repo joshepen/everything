@@ -1,6 +1,10 @@
 package com.joshepen.everything.ui;
 import java.util.*;
 import java.awt.Color;
+import java.awt.Font;
+
+import javax.sound.sampled.Line;
+import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
 import com.joshepen.everything.logic.DirectoryHandler;
@@ -29,8 +33,22 @@ public class UI extends javax.swing.JFrame implements iUI {
     public UI() {
         setColours();
         initComponents();
+        changeFont(getContentPane(), "Bahnschrift");
         this.pack();
         this.setVisible(true);
+    }
+
+    public static void changeFont ( java.awt.Component component, String name )
+    {
+        // assumes no styling on fonts. Only way I could see this working nicely.
+        component.setFont(new Font(name,Font.PLAIN, component.getFont().getSize()));
+        if ( component instanceof JComponent )
+        {
+            for ( java.awt.Component child : ( ( JComponent ) component ).getComponents() )
+            {
+                changeFont ( child, name );
+            }
+        }
     }
     
     public void setDirectoryHandler(DirectoryHandler directoryHandler){
@@ -67,7 +85,6 @@ public class UI extends javax.swing.JFrame implements iUI {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(primaryColour);
 
-        searchBar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         searchBar.setToolTipText("Search");
         searchBar.setName(""); // NOI18N
         searchBar.addActionListener(new java.awt.event.ActionListener() {
@@ -82,10 +99,19 @@ public class UI extends javax.swing.JFrame implements iUI {
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {}
         });
-        searchBar.setBackground(tertiaryColour);
-        searchBar.setForeground(quaternaryColour);
+        searchBar.setFont(new Font("Trebuchet MS",0,18));
+        searchBar.setBackground(quaternaryColour);
+        searchBar.setForeground(secondaryColour);
+        searchBar.setBorder(new LineBorder(tertiaryColour));
 
         resultsTable.setModel(resultsTableModel);
+        resultsTable.setBackground(tertiaryColour);
+        resultsTable.setGridColor(secondaryColour);
+        resultsTable.setForeground(quaternaryColour);
+        resultsTable.getTableHeader().setBackground(secondaryColour);
+        resultsTable.getTableHeader().setForeground(quaternaryColour);
+        resultsTable.getTableHeader().setBorder(new LineBorder(primaryColour));
+        
         jScrollPane2.setViewportView(resultsTable);
 
         chooseDirButton.setText("Choose Directory");
@@ -94,6 +120,9 @@ public class UI extends javax.swing.JFrame implements iUI {
                 chooseDirButtonActionPerformed(evt);
             }
         });
+        chooseDirButton.setForeground(quaternaryColour);
+        chooseDirButton.setBackground(tertiaryColour);
+        chooseDirButton.setBorder(new LineBorder(secondaryColour));
 
         recursiveCheckBox.setText("Recursive");
         recursiveCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -111,6 +140,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                 sortOrderBoxActionPerformed(evt);
             }
         });
+        sortOrderBox.setForeground(quaternaryColour);
+        sortOrderBox.setBackground(tertiaryColour);
 
         sortByBox.setModel(new javax.swing.DefaultComboBoxModel<>());
 
