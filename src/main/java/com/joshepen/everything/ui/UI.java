@@ -1,6 +1,7 @@
 package com.joshepen.everything.ui;
 import java.util.*;
 import java.awt.Color;
+import javax.swing.border.LineBorder;
 
 import com.joshepen.everything.logic.DirectoryHandler;
 import com.joshepen.everything.objects.DisplayData;
@@ -64,6 +65,7 @@ public class UI extends javax.swing.JFrame implements iUI {
         caseSensitiveCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setBackground(primaryColour);
 
         searchBar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         searchBar.setToolTipText("Search");
@@ -80,6 +82,8 @@ public class UI extends javax.swing.JFrame implements iUI {
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {}
         });
+        searchBar.setBackground(tertiaryColour);
+        searchBar.setForeground(quaternaryColour);
 
         resultsTable.setModel(resultsTableModel);
         jScrollPane2.setViewportView(resultsTable);
@@ -97,6 +101,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                 recursiveCheckBoxActionPerformed(evt);
             }
         });
+        recursiveCheckBox.setOpaque(false);
+        recursiveCheckBox.setForeground(quaternaryColour);
 
         sortOrderBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
@@ -113,8 +119,11 @@ public class UI extends javax.swing.JFrame implements iUI {
                 sortByBoxActionPerformed(evt);
             }
         });
+        sortByBox.setForeground(quaternaryColour);
+        sortByBox.setBackground(tertiaryColour);
 
         jLabel1.setText("Sort By:");
+        jLabel1.setForeground(quaternaryColour);
 
         caseSensitiveCheckBox.setText("Case Sensitive");
         caseSensitiveCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -122,6 +131,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                 caseSensitiveCheckBoxActionPerformed(evt);
             }
         });
+        caseSensitiveCheckBox.setOpaque(false);
+        caseSensitiveCheckBox.setForeground(quaternaryColour);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
