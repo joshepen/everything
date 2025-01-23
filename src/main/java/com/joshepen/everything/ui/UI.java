@@ -5,7 +5,7 @@ import java.awt.Font;
 
 import javax.sound.sampled.Line;
 import javax.swing.JComponent;
-import javax.swing.border.LineBorder;
+import javax.swing.border.*;
 
 import com.joshepen.everything.logic.DirectoryHandler;
 import com.joshepen.everything.objects.DisplayData;
@@ -113,6 +113,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         resultsTable.getTableHeader().setBorder(new LineBorder(primaryColour));
         
         jScrollPane2.setViewportView(resultsTable);
+        jScrollPane2.getViewport().setBackground(secondaryColour);
+        jScrollPane2.setBorder(new EmptyBorder(0,0,0,0));
 
         chooseDirButton.setText("Choose Directory");
         chooseDirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -152,6 +154,7 @@ public class UI extends javax.swing.JFrame implements iUI {
         });
         sortByBox.setForeground(quaternaryColour);
         sortByBox.setBackground(tertiaryColour);
+        sortByBox.setBorder(new EmptyBorder(0,0,0,0));
 
         jLabel1.setText("Sort By:");
         jLabel1.setForeground(quaternaryColour);
