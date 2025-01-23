@@ -3,9 +3,10 @@ import java.util.*;
 import java.awt.Color;
 import java.awt.Font;
 
-import javax.sound.sampled.Line;
 import javax.swing.JComponent;
 import javax.swing.border.*;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import com.joshepen.everything.logic.DirectoryHandler;
 import com.joshepen.everything.objects.DisplayData;
@@ -25,12 +26,15 @@ public class UI extends javax.swing.JFrame implements iUI {
     private Color secondaryColour;
     private Color tertiaryColour;
     private Color quaternaryColour;
+    private Icon uncheckedBoxIcon;
+    private Icon checkedBoxIcon;
 
 
     /**
      * Creates new form UI
      */
     public UI() {
+        initIcons();
         setColours();
         initComponents();
         changeFont(getContentPane(), "Bahnschrift");
@@ -53,6 +57,11 @@ public class UI extends javax.swing.JFrame implements iUI {
     
     public void setDirectoryHandler(DirectoryHandler directoryHandler){
         this.directoryHandler = directoryHandler;
+    }
+
+    public void initIcons(){
+        uncheckedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/com/joshepen/everything/icons/uncheckedBox.png")).getImage().getScaledInstance(15, 15, 15));
+        checkedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/com/joshepen/everything/icons/checkedBox.png")).getImage().getScaledInstance(15, 15, 15));
     }
 
     public void setColours(){
@@ -134,6 +143,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         });
         recursiveCheckBox.setOpaque(false);
         recursiveCheckBox.setForeground(quaternaryColour);
+        recursiveCheckBox.setIcon(uncheckedBoxIcon);
+        recursiveCheckBox.setSelectedIcon(checkedBoxIcon);
 
         sortOrderBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
@@ -167,6 +178,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         });
         caseSensitiveCheckBox.setOpaque(false);
         caseSensitiveCheckBox.setForeground(quaternaryColour);
+        caseSensitiveCheckBox.setIcon(uncheckedBoxIcon);
+        caseSensitiveCheckBox.setSelectedIcon(checkedBoxIcon);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
