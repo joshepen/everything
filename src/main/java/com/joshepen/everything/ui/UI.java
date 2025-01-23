@@ -1,10 +1,10 @@
 package com.joshepen.everything.ui;
 import java.util.*;
-import java.awt.Color;
-import java.awt.Font;
+import java.awt.*;
 
 import javax.swing.JComponent;
 import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
@@ -124,6 +124,16 @@ public class UI extends javax.swing.JFrame implements iUI {
         jScrollPane2.setViewportView(resultsTable);
         jScrollPane2.getViewport().setBackground(secondaryColour);
         jScrollPane2.setBorder(new EmptyBorder(0,0,0,0));
+        jScrollPane2.setBackground(secondaryColour);
+        jScrollPane2.getVerticalScrollBar().setBackground(quaternaryColour);
+        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = tertiaryColour;
+            }
+        });
+        jScrollPane2.getVerticalScrollBar().getComponents()[0].setBackground(tertiaryColour);
+        jScrollPane2.getVerticalScrollBar().getComponents()[1].setBackground(tertiaryColour);
 
         chooseDirButton.setText("Choose Directory");
         chooseDirButton.addActionListener(new java.awt.event.ActionListener() {
