@@ -29,9 +29,7 @@ public class GetFilesThread extends Observable implements Runnable{
     ArrayList<File> outFiles = new ArrayList<>();
     if (currFiles != null) {
       for (File file : currFiles) {
-        if (file.isFile()) {
           outFiles.add(file);
-        }
       }
 
       // I need breadth first traversal so I have to loop a second time for dirs
