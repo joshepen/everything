@@ -1,5 +1,12 @@
 package com.joshepen.everything.ui;
 import java.util.*;
+import java.awt.*;
+
+import javax.swing.JComponent;
+import javax.swing.border.*;
+import javax.swing.plaf.basic.BasicScrollBarUI;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 
 import com.joshepen.everything.logic.DirectoryHandler;
 import com.joshepen.everything.objects.DisplayData;
@@ -15,20 +22,55 @@ import com.joshepen.everything.objects.DisplayData;
 public class UI extends javax.swing.JFrame implements iUI {
 
     DirectoryHandler directoryHandler;
+    private Color primaryColour;
+    private Color secondaryColour;
+    private Color tertiaryColour;
+    private Color quaternaryColour;
+    private Icon uncheckedBoxIcon;
+    private Icon checkedBoxIcon;
+
 
     /**
      * Creates new form UI
      */
     public UI() {
+        initIcons();
+        setColours();
         initComponents();
+        changeFont(getContentPane(), "Bahnschrift");
         this.pack();
         this.setVisible(true);
+    }
+
+    public static void changeFont ( java.awt.Component component, String name )
+    {
+        // assumes no styling on fonts. Only way I could see this working nicely.
+        component.setFont(new Font(name,Font.PLAIN, component.getFont().getSize()));
+        if ( component instanceof JComponent )
+        {
+            for ( java.awt.Component child : ( ( JComponent ) component ).getComponents() )
+            {
+                changeFont ( child, name );
+            }
+        }
     }
     
     public void setDirectoryHandler(DirectoryHandler directoryHandler){
         this.directoryHandler = directoryHandler;
     }
-    
+
+    public void initIcons(){
+        uncheckedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/com/joshepen/everything/icons/uncheckedBox.png")).getImage().getScaledInstance(15, 15, 15));
+        checkedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/com/joshepen/everything/icons/checkedBox.png")).getImage().getScaledInstance(15, 15, 15));
+    }
+
+    public void setColours(){
+        primaryColour = new Color(24, 28, 20);
+        secondaryColour = new Color(60,61,55);
+        tertiaryColour = new Color(105,117,101);
+        quaternaryColour = new Color(236,233,204);
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -50,8 +92,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         caseSensitiveCheckBox = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setBackground(primaryColour);
 
-        searchBar.setFont(new java.awt.Font("Trebuchet MS", 0, 18)); // NOI18N
         searchBar.setToolTipText("Search");
         searchBar.setName(""); // NOI18N
         searchBar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,9 +108,32 @@ public class UI extends javax.swing.JFrame implements iUI {
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {}
         });
+        searchBar.setFont(new Font("Trebuchet MS",0,18));
+        searchBar.setBackground(quaternaryColour);
+        searchBar.setForeground(secondaryColour);
+        searchBar.setBorder(new LineBorder(tertiaryColour));
 
         resultsTable.setModel(resultsTableModel);
+        resultsTable.setBackground(tertiaryColour);
+        resultsTable.setGridColor(secondaryColour);
+        resultsTable.setForeground(quaternaryColour);
+        resultsTable.getTableHeader().setBackground(secondaryColour);
+        resultsTable.getTableHeader().setForeground(quaternaryColour);
+        resultsTable.getTableHeader().setBorder(new LineBorder(primaryColour));
+        
         jScrollPane2.setViewportView(resultsTable);
+        jScrollPane2.getViewport().setBackground(secondaryColour);
+        jScrollPane2.setBorder(new EmptyBorder(0,0,0,0));
+        jScrollPane2.setBackground(secondaryColour);
+        jScrollPane2.getVerticalScrollBar().setBackground(quaternaryColour);
+        jScrollPane2.getVerticalScrollBar().setUI(new BasicScrollBarUI() {
+            @Override
+            protected void configureScrollBarColors() {
+                this.thumbColor = tertiaryColour;
+            }
+        });
+        jScrollPane2.getVerticalScrollBar().getComponents()[0].setBackground(tertiaryColour);
+        jScrollPane2.getVerticalScrollBar().getComponents()[1].setBackground(tertiaryColour);
 
         chooseDirButton.setText("Choose Directory");
         chooseDirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -76,6 +141,9 @@ public class UI extends javax.swing.JFrame implements iUI {
                 chooseDirButtonActionPerformed(evt);
             }
         });
+        chooseDirButton.setForeground(quaternaryColour);
+        chooseDirButton.setBackground(tertiaryColour);
+        chooseDirButton.setBorder(new LineBorder(secondaryColour));
 
         recursiveCheckBox.setText("Recursive");
         recursiveCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -83,6 +151,10 @@ public class UI extends javax.swing.JFrame implements iUI {
                 recursiveCheckBoxActionPerformed(evt);
             }
         });
+        recursiveCheckBox.setOpaque(false);
+        recursiveCheckBox.setForeground(quaternaryColour);
+        recursiveCheckBox.setIcon(uncheckedBoxIcon);
+        recursiveCheckBox.setSelectedIcon(checkedBoxIcon);
 
         sortOrderBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ascending", "Descending" }));
 
@@ -91,6 +163,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                 sortOrderBoxActionPerformed(evt);
             }
         });
+        sortOrderBox.setForeground(quaternaryColour);
+        sortOrderBox.setBackground(tertiaryColour);
 
         sortByBox.setModel(new javax.swing.DefaultComboBoxModel<>());
 
@@ -99,8 +173,12 @@ public class UI extends javax.swing.JFrame implements iUI {
                 sortByBoxActionPerformed(evt);
             }
         });
+        sortByBox.setForeground(quaternaryColour);
+        sortByBox.setBackground(tertiaryColour);
+        sortByBox.setBorder(new EmptyBorder(0,0,0,0));
 
         jLabel1.setText("Sort By:");
+        jLabel1.setForeground(quaternaryColour);
 
         caseSensitiveCheckBox.setText("Case Sensitive");
         caseSensitiveCheckBox.addActionListener(new java.awt.event.ActionListener() {
@@ -108,35 +186,40 @@ public class UI extends javax.swing.JFrame implements iUI {
                 caseSensitiveCheckBoxActionPerformed(evt);
             }
         });
+        caseSensitiveCheckBox.setOpaque(false);
+        caseSensitiveCheckBox.setForeground(quaternaryColour);
+        caseSensitiveCheckBox.setIcon(uncheckedBoxIcon);
+        caseSensitiveCheckBox.setSelectedIcon(checkedBoxIcon);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(recursiveCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caseSensitiveCheckBox)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 256, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(sortByBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sortOrderBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(searchBar)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(chooseDirButton)))
-                .addGap(47, 47, 47))
+                        .addComponent(chooseDirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(47, 47, 47)
+                .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
@@ -150,8 +233,8 @@ public class UI extends javax.swing.JFrame implements iUI {
                     .addComponent(jLabel1)
                     .addComponent(caseSensitiveCheckBox))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 552, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(47, 47, 47))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addGap(25, 25, 25))
         );
 
         pack();
