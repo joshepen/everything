@@ -61,7 +61,10 @@ public class SearchThread extends Observable implements Runnable {
         currFile = files.get(i);
         names.add(currFile.getName());
         paths.add(currFile.getParent().substring(dir.getPath().length()));
-        sizes.add(readableFileSize(currFile.length()));
+        if(currFile.isDirectory())
+            sizes.add("Folder");
+        else
+            sizes.add(readableFileSize(currFile.length()));
       }
     }
 

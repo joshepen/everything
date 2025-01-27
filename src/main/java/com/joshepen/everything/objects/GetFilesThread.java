@@ -2,6 +2,7 @@ package com.joshepen.everything.objects;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Observable;
 
@@ -28,13 +29,8 @@ public class GetFilesThread extends Observable implements Runnable{
     File[] currFiles = dir.listFiles();
     ArrayList<File> outFiles = new ArrayList<>();
     if (currFiles != null) {
-      for (File file : currFiles) {
-        if (file.isFile()) {
-          outFiles.add(file);
-        }
-      }
+      outFiles.addAll(Arrays.asList(currFiles));
 
-      // I need breadth first traversal so I have to loop a second time for dirs
       if (recursive) {
         for (File file : currFiles) {
           if (file.isDirectory() && numDirs < maxRecursionDepth) {
