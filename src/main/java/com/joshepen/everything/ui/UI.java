@@ -83,7 +83,13 @@ public class UI extends javax.swing.JFrame implements iUI {
         searchBar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultsTable = new javax.swing.JTable();
-        resultsTableModel = new javax.swing.table.DefaultTableModel();
+        resultsTableModel = new javax.swing.table.DefaultTableModel(){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               return false;
+            }
+        };
         chooseDirButton = new javax.swing.JButton();
         recursiveCheckBox = new javax.swing.JCheckBox();
         sortOrderBox = new javax.swing.JComboBox<>();
