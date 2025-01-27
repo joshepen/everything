@@ -98,7 +98,7 @@ public class UI extends javax.swing.JFrame implements iUI {
         sortByBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         caseSensitiveCheckBox = new javax.swing.JCheckBox();
-        searchDepthSpinnerModel = new SpinnerNumberModel(3, 0, 99, 1); 
+        searchDepthSpinnerModel = new SpinnerNumberModel(3, 0, 999, 1); 
         searchDepthSpinner = new javax.swing.JSpinner(searchDepthSpinnerModel);
         searchDepthLabel = new javax.swing.JLabel();
 
