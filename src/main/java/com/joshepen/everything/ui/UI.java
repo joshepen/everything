@@ -96,6 +96,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         sortByBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         caseSensitiveCheckBox = new javax.swing.JCheckBox();
+        searchDepthSpinner = new javax.swing.JSpinner();
+        searchDepthLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(primaryColour);
@@ -197,6 +199,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         caseSensitiveCheckBox.setIcon(uncheckedBoxIcon);
         caseSensitiveCheckBox.setSelectedIcon(checkedBoxIcon);
 
+        searchDepthLabel.setText("Search Depth");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,6 +213,10 @@ public class UI extends javax.swing.JFrame implements iUI {
                         .addComponent(recursiveCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caseSensitiveCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchDepthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchDepthLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -236,7 +244,9 @@ public class UI extends javax.swing.JFrame implements iUI {
                     .addComponent(sortOrderBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sortByBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(caseSensitiveCheckBox))
+                    .addComponent(caseSensitiveCheckBox)
+                    .addComponent(searchDepthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(searchDepthLabel))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
@@ -308,6 +318,8 @@ public class UI extends javax.swing.JFrame implements iUI {
     private javax.swing.JCheckBox recursiveCheckBox;
     private javax.swing.JTable resultsTable;
     private javax.swing.JTextField searchBar;
+    private javax.swing.JLabel searchDepthLabel;
+    private javax.swing.JSpinner searchDepthSpinner;
     private javax.swing.JComboBox<String> sortByBox;
     private javax.swing.JComboBox<String> sortOrderBox;
     // End of variables declaration//GEN-END:variables
