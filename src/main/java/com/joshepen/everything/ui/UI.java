@@ -83,7 +83,13 @@ public class UI extends javax.swing.JFrame implements iUI {
         searchBar = new javax.swing.JTextField();
         jScrollPane2 = new javax.swing.JScrollPane();
         resultsTable = new javax.swing.JTable();
-        resultsTableModel = new javax.swing.table.DefaultTableModel();
+        resultsTableModel = new javax.swing.table.DefaultTableModel(){
+
+            @Override
+            public boolean isCellEditable(int row, int column) {
+               return false;
+            }
+        };
         chooseDirButton = new javax.swing.JButton();
         recursiveCheckBox = new javax.swing.JCheckBox();
         sortOrderBox = new javax.swing.JComboBox<>();
@@ -210,10 +216,9 @@ public class UI extends javax.swing.JFrame implements iUI {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sortOrderBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(searchBar, javax.swing.GroupLayout.PREFERRED_SIZE, 515, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
-                        .addComponent(chooseDirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(chooseDirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(25, 25, 25))
         );
         layout.setVerticalGroup(
@@ -233,7 +238,7 @@ public class UI extends javax.swing.JFrame implements iUI {
                     .addComponent(jLabel1)
                     .addComponent(caseSensitiveCheckBox))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 574, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
         );
 
