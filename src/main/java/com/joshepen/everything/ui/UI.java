@@ -3,6 +3,8 @@ import java.util.*;
 import java.awt.*;
 
 import javax.swing.JComponent;
+import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.Icon;
@@ -96,7 +98,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         sortByBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         caseSensitiveCheckBox = new javax.swing.JCheckBox();
-        searchDepthSpinner = new javax.swing.JSpinner();
+        searchDepthSpinnerModel = new SpinnerNumberModel(3, 0, 99, 1); 
+        searchDepthSpinner = new javax.swing.JSpinner(searchDepthSpinnerModel);
         searchDepthLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -120,6 +123,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         searchBar.setBackground(quaternaryColour);
         searchBar.setForeground(secondaryColour);
         searchBar.setBorder(new LineBorder(tertiaryColour));
+
+        ((DefaultEditor) searchDepthSpinner.getEditor()).getTextField().setEditable(false);
 
         resultsTable.setModel(resultsTableModel);
         resultsTable.setBackground(tertiaryColour);
@@ -324,4 +329,5 @@ public class UI extends javax.swing.JFrame implements iUI {
     private javax.swing.JComboBox<String> sortOrderBox;
     // End of variables declaration//GEN-END:variables
     private javax.swing.table.DefaultTableModel resultsTableModel;
+    private javax.swing.SpinnerModel searchDepthSpinnerModel;
 }
