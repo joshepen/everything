@@ -134,6 +134,13 @@ public class UI extends javax.swing.JFrame implements iUI {
         resultsTable.getTableHeader().setForeground(quaternaryColour);
         resultsTable.getTableHeader().setBorder(new LineBorder(primaryColour));
         
+        searchDepthSpinner.getEditor().getComponent(0).setBackground(quaternaryColour);
+        searchDepthSpinner.getEditor().getComponent(0).setForeground(secondaryColour);
+        searchDepthSpinner.getComponent(0).setBackground(tertiaryColour);
+        searchDepthSpinner.getComponent(1).setBackground(tertiaryColour);
+
+        searchDepthLabel.setForeground(quaternaryColour);
+
         jScrollPane2.setViewportView(resultsTable);
         jScrollPane2.getViewport().setBackground(secondaryColour);
         jScrollPane2.setBorder(new EmptyBorder(0,0,0,0));
