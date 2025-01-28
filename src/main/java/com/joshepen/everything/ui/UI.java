@@ -138,6 +138,16 @@ public class UI extends javax.swing.JFrame implements iUI {
         searchDepthSpinner.getEditor().getComponent(0).setForeground(secondaryColour);
         searchDepthSpinner.getComponent(0).setBackground(tertiaryColour);
         searchDepthSpinner.getComponent(1).setBackground(tertiaryColour);
+        searchDepthSpinner.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                searchDepthMouseReleased(evt);
+            }
+        });
+        searchDepthSpinner.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                searchDepthMouseReleased(evt);
+            }
+        });
 
         searchDepthLabel.setForeground(quaternaryColour);
 
@@ -292,6 +302,10 @@ public class UI extends javax.swing.JFrame implements iUI {
         if(sortByBox.getSelectedItem() != null)
             directoryHandler.setSortBy(sortByBox.getSelectedItem().toString());
     }
+
+    private void searchDepthMouseReleased(java.awt.event.MouseEvent evt) {                                   
+        // Deal with change of depth here
+    }  
 
     /**
      * @param args the command line arguments
