@@ -37,6 +37,11 @@ public class DirectoryHandler implements Observer{
         dirContents.refreshFiles();
     }
 
+    public void setSearchDepth(int depth){
+        dirContents.setSearchDepth(depth);
+        dirContents.refreshFiles();
+    }
+
     public void setAscending(boolean ascending){
         dirContents.setAscending(ascending);
         dirContents.search();

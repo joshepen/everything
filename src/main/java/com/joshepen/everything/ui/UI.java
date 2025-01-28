@@ -304,7 +304,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     }
 
     private void searchDepthMouseReleased(java.awt.event.MouseEvent evt) {                                   
-        // Deal with change of depth here
+        directoryHandler.setSearchDepth((int)searchDepthSpinner.getValue());
     }  
 
     /**
