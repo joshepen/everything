@@ -5,7 +5,7 @@ import java.util.*;
 
 
 public class DirectoryContents extends Observable implements Observer{
-    private final int MAX_NUM_DIRS = 3;
+    private int searchDepth = 3;
     private File dir;
     private ArrayList<File> files;
     private DisplayData displayData;
@@ -41,7 +41,7 @@ public class DirectoryContents extends Observable implements Observer{
         if(getFilesThread != null){
             getFilesThread.interrupt();
         }
-        getFilesObject = new GetFilesThread(recursive,dir,MAX_NUM_DIRS);
+        getFilesObject = new GetFilesThread(recursive,dir,searchDepth);
         getFilesObject.addObserver(this);
         getFilesThread = new Thread(getFilesObject);
         getFilesThread.start();
@@ -63,6 +63,10 @@ public class DirectoryContents extends Observable implements Observer{
 
     public void setDirectory(String path){
         dir = new File(path);
+    }
+
+    public void setSearchDepth(int depth){
+        searchDepth = depth;
     }
 
     public void setRecursive(boolean recursive){

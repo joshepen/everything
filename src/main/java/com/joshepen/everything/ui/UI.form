@@ -8,6 +8,9 @@
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
+  <Events>
+    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="formMouseReleased"/>
+  </Events>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -31,6 +34,10 @@
                       <Component id="recursiveCheckBox" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" max="-2" attributes="0"/>
                       <Component id="caseSensitiveCheckBox" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="searchDepthSpinner" min="-2" pref="40" max="-2" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="searchDepthLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
@@ -66,6 +73,8 @@
                   <Component id="sortByBox" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="caseSensitiveCheckBox" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="searchDepthLabel" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="searchDepthSpinner" alignment="3" min="-2" pref="22" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jScrollPane2" pref="349" max="32767" attributes="0"/>
@@ -171,6 +180,13 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="caseSensitiveCheckBoxActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JSpinner" name="searchDepthSpinner">
+    </Component>
+    <Component class="javax.swing.JLabel" name="searchDepthLabel">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Search Depth"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

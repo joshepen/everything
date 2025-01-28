@@ -3,6 +3,8 @@ import java.util.*;
 import java.awt.*;
 
 import javax.swing.JComponent;
+import javax.swing.JSpinner.DefaultEditor;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.border.*;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 import javax.swing.Icon;
@@ -96,6 +98,9 @@ public class UI extends javax.swing.JFrame implements iUI {
         sortByBox = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         caseSensitiveCheckBox = new javax.swing.JCheckBox();
+        searchDepthSpinnerModel = new SpinnerNumberModel(3, 0, 999, 1); 
+        searchDepthSpinner = new javax.swing.JSpinner(searchDepthSpinnerModel);
+        searchDepthLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(primaryColour);
@@ -119,6 +124,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         searchBar.setForeground(secondaryColour);
         searchBar.setBorder(new LineBorder(tertiaryColour));
 
+        ((DefaultEditor) searchDepthSpinner.getEditor()).getTextField().setEditable(false);
+
         resultsTable.setModel(resultsTableModel);
         resultsTable.setBackground(tertiaryColour);
         resultsTable.setGridColor(secondaryColour);
@@ -127,6 +134,23 @@ public class UI extends javax.swing.JFrame implements iUI {
         resultsTable.getTableHeader().setForeground(quaternaryColour);
         resultsTable.getTableHeader().setBorder(new LineBorder(primaryColour));
         
+        searchDepthSpinner.getEditor().getComponent(0).setBackground(quaternaryColour);
+        searchDepthSpinner.getEditor().getComponent(0).setForeground(secondaryColour);
+        searchDepthSpinner.getComponent(0).setBackground(tertiaryColour);
+        searchDepthSpinner.getComponent(1).setBackground(tertiaryColour);
+        searchDepthSpinner.getComponent(0).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                searchDepthMouseReleased(evt);
+            }
+        });
+        searchDepthSpinner.getComponent(1).addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                searchDepthMouseReleased(evt);
+            }
+        });
+
+        searchDepthLabel.setForeground(quaternaryColour);
+
         jScrollPane2.setViewportView(resultsTable);
         jScrollPane2.getViewport().setBackground(secondaryColour);
         jScrollPane2.setBorder(new EmptyBorder(0,0,0,0));
@@ -197,6 +221,8 @@ public class UI extends javax.swing.JFrame implements iUI {
         caseSensitiveCheckBox.setIcon(uncheckedBoxIcon);
         caseSensitiveCheckBox.setSelectedIcon(checkedBoxIcon);
 
+        searchDepthLabel.setText("Search Depth");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,6 +235,10 @@ public class UI extends javax.swing.JFrame implements iUI {
                         .addComponent(recursiveCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caseSensitiveCheckBox)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchDepthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(searchDepthLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -236,7 +266,9 @@ public class UI extends javax.swing.JFrame implements iUI {
                     .addComponent(sortOrderBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(sortByBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
-                    .addComponent(caseSensitiveCheckBox))
+                    .addComponent(caseSensitiveCheckBox)
+                    .addComponent(searchDepthLabel)
+                    .addComponent(searchDepthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
                 .addGap(25, 25, 25))
@@ -270,6 +302,10 @@ public class UI extends javax.swing.JFrame implements iUI {
         if(sortByBox.getSelectedItem() != null)
             directoryHandler.setSortBy(sortByBox.getSelectedItem().toString());
     }
+
+    private void searchDepthMouseReleased(java.awt.event.MouseEvent evt) {                                   
+        directoryHandler.setSearchDepth((int)searchDepthSpinner.getValue());
+    }  
 
     /**
      * @param args the command line arguments
@@ -308,8 +344,11 @@ public class UI extends javax.swing.JFrame implements iUI {
     private javax.swing.JCheckBox recursiveCheckBox;
     private javax.swing.JTable resultsTable;
     private javax.swing.JTextField searchBar;
+    private javax.swing.JLabel searchDepthLabel;
+    private javax.swing.JSpinner searchDepthSpinner;
     private javax.swing.JComboBox<String> sortByBox;
     private javax.swing.JComboBox<String> sortOrderBox;
     // End of variables declaration//GEN-END:variables
     private javax.swing.table.DefaultTableModel resultsTableModel;
+    private javax.swing.SpinnerModel searchDepthSpinnerModel;
 }
