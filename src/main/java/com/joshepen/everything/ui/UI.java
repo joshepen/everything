@@ -62,8 +62,8 @@ public class UI extends javax.swing.JFrame implements iUI {
     }
 
     public void initIcons(){
-        uncheckedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/com/joshepen/everything/icons/uncheckedBox.png")).getImage().getScaledInstance(15, 15, 15));
-        checkedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/com/joshepen/everything/icons/checkedBox.png")).getImage().getScaledInstance(15, 15, 15));
+        uncheckedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/icons/uncheckedBox.png")).getImage().getScaledInstance(15, 15, 15));
+        checkedBoxIcon = new ImageIcon(new ImageIcon(getClass().getResource("/icons/checkedBox.png")).getImage().getScaledInstance(15, 15, 15));
     }
 
     public void setColours(){
