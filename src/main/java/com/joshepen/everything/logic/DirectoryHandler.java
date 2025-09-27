@@ -30,46 +30,56 @@ public class DirectoryHandler implements Observer{
     public void setCaseSensitivity(boolean isCaseSensitive){
         dirContents.setCaseSensitive(isCaseSensitive);
         dirContents.search();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void setRecursive(boolean isRecursive){
         dirContents.setRecursive(isRecursive);
         dirContents.refreshFiles();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void setSearchDepth(int depth){
         dirContents.setSearchDepth(depth);
         dirContents.refreshFiles();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void setAscending(boolean ascending){
         dirContents.setAscending(ascending);
         dirContents.search();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void setSortBy(String columnName){
         dirContents.setSortBy(columnName);
         dirContents.search();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void chooseDir(){
-        dirContents.setDirectory(promptDirectory());
+		String dir = promptDirectory();
+        dirContents.setDirectory(dir);
         dirContents.refreshFiles();
+	ui.setStatus("Loading: " + dir);
     }
 
     public void refresh(){
         dirContents.refreshFiles();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void search(String term){
         dirContents.setSearchTerm(term);
         dirContents.search();
+	ui.setStatus("Loading: " + dirContents.getDirectory());
     }
 
     public void update(Observable o, Object arg){
         DisplayData dd = dirContents.getDisplayData();
         if(dd != null){
-            ui.setResults(dd);
+           ui.setResults(dd);
+	   ui.setStatus(dirContents.getDirectory());
         }
     }
 }

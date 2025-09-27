@@ -101,6 +101,9 @@ public class UI extends javax.swing.JFrame implements iUI {
         searchDepthSpinnerModel = new SpinnerNumberModel(3, 0, 999, 1); 
         searchDepthSpinner = new javax.swing.JSpinner(searchDepthSpinnerModel);
         searchDepthLabel = new javax.swing.JLabel();
+        statusLabel = new javax.swing.JLabel();
+
+	statusLabel.setForeground(quaternaryColour);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setBackground(primaryColour);
@@ -227,11 +230,12 @@ public class UI extends javax.swing.JFrame implements iUI {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(statusLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(recursiveCheckBox)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(caseSensitiveCheckBox)
@@ -245,7 +249,7 @@ public class UI extends javax.swing.JFrame implements iUI {
                         .addComponent(sortByBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(sortOrderBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(searchBar, javax.swing.GroupLayout.DEFAULT_SIZE, 515, Short.MAX_VALUE)
                         .addGap(18, 18, 18)
                         .addComponent(chooseDirButton, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -270,8 +274,10 @@ public class UI extends javax.swing.JFrame implements iUI {
                     .addComponent(searchDepthLabel)
                     .addComponent(searchDepthSpinner, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE)
-                .addGap(25, 25, 25))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 345, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(statusLabel)
+                .addContainerGap())
         );
 
         pack();
@@ -336,6 +342,10 @@ public class UI extends javax.swing.JFrame implements iUI {
         }
     }
 
+    public void setStatus(String status){
+	statusLabel.setText(status);
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox caseSensitiveCheckBox;
     private javax.swing.JButton chooseDirButton;
@@ -348,6 +358,7 @@ public class UI extends javax.swing.JFrame implements iUI {
     private javax.swing.JSpinner searchDepthSpinner;
     private javax.swing.JComboBox<String> sortByBox;
     private javax.swing.JComboBox<String> sortOrderBox;
+    private javax.swing.JLabel statusLabel;
     // End of variables declaration//GEN-END:variables
     private javax.swing.table.DefaultTableModel resultsTableModel;
     private javax.swing.SpinnerModel searchDepthSpinnerModel;

@@ -6,4 +6,5 @@ import com.joshepen.everything.objects.DisplayData;
 public interface iUI {
     public void setResults(DisplayData data);
     public void setDirectoryHandler(DirectoryHandler directoryHandler);
+    public void setStatus(String status);
 }

@@ -22,7 +22,7 @@ public class DirectoryContents extends Observable implements Observer{
     public DirectoryContents(){
         searchTerm = "";
         caseSensitive = false;
-        setDirectory("C:\\");
+        setDirectory("");
         recursive = false;
         ascending = true;
         sortBy = "";
@@ -64,6 +64,10 @@ public class DirectoryContents extends Observable implements Observer{
     public void setDirectory(String path){
         dir = new File(path);
     }
+
+    public String getDirectory(){
+	return dir.getAbsolutePath();
+	}
 
     public void setSearchDepth(int depth){
         searchDepth = depth;
