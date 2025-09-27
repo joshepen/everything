@@ -3,8 +3,7 @@ package com.joshepen.everything.objects;
 import java.io.File;
 import java.util.*;
 
-
-public class DirectoryContents extends Observable implements Observer{
+public class DirectoryContents extends Observable implements Observer {
     private int searchDepth = 3;
     private File dir;
     private ArrayList<File> files;
@@ -18,18 +17,18 @@ public class DirectoryContents extends Observable implements Observer{
     private Thread searchThread;
     private GetFilesThread getFilesObject;
     private Thread getFilesThread;
-    
-    public DirectoryContents(){
+
+    public DirectoryContents() {
         searchTerm = "";
         caseSensitive = false;
-        setDirectory("C:\\");
+        setDirectory("");
         recursive = false;
         ascending = true;
         sortBy = "";
         getFiles();
     }
 
-    public void refreshFiles(){
+    public void refreshFiles() {
         /*
          * This fetches all the files in the current directory
          * and then updates the display data
@@ -37,39 +36,43 @@ public class DirectoryContents extends Observable implements Observer{
         getFiles();
     }
 
-    public void getFiles(){
-        if(getFilesThread != null){
+    public void getFiles() {
+        if (getFilesThread != null) {
             getFilesThread.interrupt();
         }
-        getFilesObject = new GetFilesThread(recursive,dir,searchDepth);
+        getFilesObject = new GetFilesThread(recursive, dir, searchDepth);
         getFilesObject.addObserver(this);
         getFilesThread = new Thread(getFilesObject);
         getFilesThread.start();
     }
 
-    public void search(){
-        if(searchThread != null){
+    public void search() {
+        if (searchThread != null) {
             searchThread.interrupt();
         }
-        searchObject = new SearchThread(files, searchTerm, sortBy, caseSensitive, ascending,dir);
+        searchObject = new SearchThread(files, searchTerm, sortBy, caseSensitive, ascending, dir);
         searchObject.addObserver(this);
         searchThread = new Thread(searchObject);
         searchThread.start();
     }
 
-    public void setSearchTerm(String term){
+    public void setSearchTerm(String term) {
         searchTerm = term;
     }
 
-    public void setDirectory(String path){
+    public void setDirectory(String path) {
         dir = new File(path);
     }
 
-    public void setSearchDepth(int depth){
+    public String getDirectory() {
+        return dir.getAbsolutePath();
+    }
+
+    public void setSearchDepth(int depth) {
         searchDepth = depth;
     }
 
-    public void setRecursive(boolean recursive){
+    public void setRecursive(boolean recursive) {
         this.recursive = recursive;
     }
 
@@ -77,27 +80,27 @@ public class DirectoryContents extends Observable implements Observer{
         this.caseSensitive = caseSensitive;
     }
 
-    public void setAscending(boolean ascending){
+    public void setAscending(boolean ascending) {
         this.ascending = ascending;
     }
 
-    public void setSortBy(String columnName){
+    public void setSortBy(String columnName) {
         sortBy = columnName;
     }
 
-    public DisplayData getDisplayData(){
+    public DisplayData getDisplayData() {
         return displayData;
     }
 
-    public void update(Observable o, Object arg){
-        if(o.getClass() == getFilesObject.getClass()){
+    public void update(Observable o, Object arg) {
+        if (o.getClass() == getFilesObject.getClass()) {
             files = getFilesObject.getFiles();
             search();
         }
-        if(searchObject != null){
+        if (searchObject != null) {
             displayData = searchObject.getDisplayData();
         }
-        
+
         setChanged();
         notifyObservers();
     }
