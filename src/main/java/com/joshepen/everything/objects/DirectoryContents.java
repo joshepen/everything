@@ -3,80 +3,105 @@ package com.joshepen.everything.objects;
 import java.io.File;
 import java.util.*;
 
-public class DirectoryContents {
-    File dir;
-    File[] files;
-    ArrayList<File> processedFiles;
-    String searchTerm;
-    boolean caseSensitive;
-    
-    public DirectoryContents(){
+public class DirectoryContents extends Observable implements Observer {
+    private int searchDepth = 3;
+    private File dir;
+    private ArrayList<File> files;
+    private DisplayData displayData;
+    private String searchTerm;
+    private boolean caseSensitive;
+    private boolean recursive;
+    private boolean ascending;
+    private String sortBy;
+    private SearchThread searchObject;
+    private Thread searchThread;
+    private GetFilesThread getFilesObject;
+    private Thread getFilesThread;
+
+    public DirectoryContents() {
         searchTerm = "";
         caseSensitive = false;
-        setDirectory("C:\\");
-        refreshFiles();
+        setDirectory("");
+        recursive = false;
+        ascending = true;
+        sortBy = "";
+        getFiles();
     }
 
-    public void refreshFiles(){
-        files = dir.listFiles();
-        searchName(searchTerm);
-        sort();
+    public void refreshFiles() {
+        /*
+         * This fetches all the files in the current directory
+         * and then updates the display data
+         */
+        getFiles();
     }
 
-    public void setSearchTerm(String term){
+    public void getFiles() {
+        if (getFilesThread != null) {
+            getFilesThread.interrupt();
+        }
+        getFilesObject = new GetFilesThread(recursive, dir, searchDepth);
+        getFilesObject.addObserver(this);
+        getFilesThread = new Thread(getFilesObject);
+        getFilesThread.start();
+    }
+
+    public void search() {
+        if (searchThread != null) {
+            searchThread.interrupt();
+        }
+        searchObject = new SearchThread(files, searchTerm, sortBy, caseSensitive, ascending, dir);
+        searchObject.addObserver(this);
+        searchThread = new Thread(searchObject);
+        searchThread.start();
+    }
+
+    public void setSearchTerm(String term) {
         searchTerm = term;
     }
 
-    public void setDirectory(String path){
+    public void setDirectory(String path) {
         dir = new File(path);
+    }
+
+    public String getDirectory() {
+        return dir.getAbsolutePath();
+    }
+
+    public void setSearchDepth(int depth) {
+        searchDepth = depth;
+    }
+
+    public void setRecursive(boolean recursive) {
+        this.recursive = recursive;
     }
 
     public void setCaseSensitive(boolean caseSensitive) {
         this.caseSensitive = caseSensitive;
     }
 
-    public DisplayData getDisplayData(){
-        String[] columnNames = {"Name","Path","Size (MB)"};
-        List<List<String>> data = new ArrayList<>();
-        
-        ArrayList<String> names = new ArrayList<>();
-        ArrayList<String> paths = new ArrayList<>();
-        ArrayList<String> sizes = new ArrayList<>();
-
-        data.add(names);
-        data.add(paths);
-        data.add(sizes);
-
-        File currFile;
-        for(int i=0; i<processedFiles.size(); i++){
-            currFile = processedFiles.get(i);
-            names.add(currFile.getName());
-            paths.add(currFile.getParent().substring(dir.getPath().length()));
-            sizes.add(Double.toString(currFile.length()));
-        }
-
-        return new DisplayData(columnNames, data);
+    public void setAscending(boolean ascending) {
+        this.ascending = ascending;
     }
 
-    private void searchName(String term){
-        if(!caseSensitive) term = term.toLowerCase();
-        processedFiles = new ArrayList<>();
-        String currFileName;
-        for(int i=0;i<files.length;i++){
-            currFileName = files[i].getName();
-            if(!caseSensitive) currFileName = currFileName.toLowerCase();
-
-            if(currFileName.contains(term)){
-                processedFiles.add(files[i]);
-            }
-        }
+    public void setSortBy(String columnName) {
+        sortBy = columnName;
     }
 
-    private void sort(){
-        Collections.sort(processedFiles, new Comparator<File>() {
-            public int compare(File f1, File f2) {
-                return f1.getName().compareTo(f2.getName());
-            }
-        });
+    public DisplayData getDisplayData() {
+        return displayData;
+    }
+
+    public void update(Observable o, Object arg) {
+        if (o.getClass() == getFilesObject.getClass()) {
+            files = getFilesObject.getFiles();
+            search();
+        }
+        if (searchObject != null) {
+            displayData = searchObject.getDisplayData();
+        }
+
+        setChanged();
+        notifyObservers();
     }
 }

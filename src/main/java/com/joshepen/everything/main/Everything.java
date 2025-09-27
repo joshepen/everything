@@ -4,7 +4,6 @@
 
 package com.joshepen.everything.main;
 import com.joshepen.everything.ui.*;
-import com.joshepen.everything.objects.*;
 import com.joshepen.everything.logic.*;
 
 /**
