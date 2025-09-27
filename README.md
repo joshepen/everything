@@ -1,5 +1,5 @@
 # Everything
-Everything is a search program I'm making for nicer searching of files in windows, because I feel like it never works the way I want it to.
+File search program written in Java
 
 ## Prerequisites
 - Java

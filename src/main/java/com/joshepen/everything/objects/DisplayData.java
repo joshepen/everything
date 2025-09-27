@@ -14,37 +14,38 @@ public class DisplayData {
     private String sortBy;
     public String[] columnNames;
 
-    public DisplayData(String[] columnNames, List<List<String>> data){
+    public DisplayData(String[] columnNames, List<List<String>> data) {
         displayItems = new ArrayList<>();
         DisplayItem currDisplayItem;
         this.columnNames = columnNames;
 
-        for(int i=0;i<data.get(0).size();i++){
+        for (int i = 0; i < data.get(0).size(); i++) {
             currDisplayItem = new DisplayItem();
-            for(int j=0;j<data.size();j++){
+            for (int j = 0; j < data.size(); j++) {
                 currDisplayItem.addAttribute(columnNames[j], data.get(j).get(i));
             }
             displayItems.add(currDisplayItem);
         }
     }
 
-    public int size(){
+    public int size() {
         return displayItems.size();
     }
-    public Vector<String> get(int index){
+
+    public Vector<String> get(int index) {
         return displayItems.get(index).getVector();
     }
 
-    public void sortByColumn(String columnName, boolean ascending){
+    public void sortByColumn(String columnName, boolean ascending) {
         sortBy = columnName;
-        if(sortBy.equals("")){
+        if (sortBy.equals("")) {
             sortBy = columnNames[0];
         }
-        Collections.sort(displayItems,new Comparator<DisplayItem>() {
+        Collections.sort(displayItems, new Comparator<DisplayItem>() {
             @Override
-            public int compare(DisplayItem i1, DisplayItem i2){
-                return (ascending ? 1:-1) * i1.getAttribute(sortBy).compareToIgnoreCase(i2.getAttribute(sortBy));
+            public int compare(DisplayItem i1, DisplayItem i2) {
+                return (ascending ? 1 : -1) * i1.getAttribute(sortBy).compareToIgnoreCase(i2.getAttribute(sortBy));
             }
-        });     
+        });
     }
 }
