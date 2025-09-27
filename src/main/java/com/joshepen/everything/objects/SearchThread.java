@@ -90,10 +90,7 @@ public class SearchThread extends Observable implements Runnable {
     for (char c : term.toCharArray()) {
       switch (c) {
         case '*':
-          regex += ".*";
-          break;
-        case '%':
-          regex += ".";
+          regex += "[^\\n]*";
           break;
         case '.':
           regex += "\\.";
